@@ -1,0 +1,12 @@
+#! /usr/local/bin/perl6
+use v6;
+
+sub MAIN($file) {
+    say qx[cat template.html].subst(
+            q[$body],
+            qqx[perl Markdown_1.0.1/Markdown.pl $file].subst(
+                "<h2>Exercises",
+                q[<div class="exercises"><h2>Exercises]
+            ) ~ "</div>\n"
+        );
+}
