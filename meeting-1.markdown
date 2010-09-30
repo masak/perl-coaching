@@ -170,13 +170,13 @@ Here are the previous `sed` and `awk` examples with `perl` instead:
     $ echo 'abababa' | perl -wpe 's/aba/aCa/g'
     aCabaCa
 
-    $ ps | perl -wnle 'split; print $_[2]'
+    $ ps | perl -wanle 'print $F[2]'
     TIME
     0:00.05
     0:00.27
     0:00.00
 
-    $ ls -l | perl -wnle 'if (!/total/) { split; print $_[0] }'
+    $ ls -l | perl -wanle 'print $F[0] if !/total/'
     -rw-r--r--
     -rw-r--r--
     -rw-r--r--
@@ -185,7 +185,7 @@ Here are the previous `sed` and `awk` examples with `perl` instead:
     -rw-r--r--
     -rw-r--r--
 
-    $ ls -l | perl -wnle 'split; $s += $_[4]; END { print $s }'
+    $ ls -l | perl -wanle '$s += $F[4]; END { print $s }'
     1572695
 
 Note the use of the `-e` flag for command-line oneliners, and of `-n` and
@@ -196,9 +196,11 @@ statement.
 
 The `-w` flag turns on warnings. That's just good style, even for a oneliner.
 
-In Perl, you have to manually `split` the record into fields, which are then
-accessed through the variable `@_`. The indices are zero-based, so each
-index above is one smaller than the corresponding `awk` field variable.
+In Perl, you can use the `-a` flag to automatically `split` the record into
+fields, to be stored in a `@F` array. The indices are zero-based, so each index
+above is one smaller than the corresponding `awk` field variable. Note the use
+of `@` for referring to the whole array, and `$` for referring to only one of
+its elements.
 
 You have to explicitly use an `if` statement to emulate `awk`s pattern
 matching. Just like `awk`, Perl has `BEGIN` and `END`.
