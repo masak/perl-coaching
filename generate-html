@@ -3,6 +3,9 @@ use v6;
 
 sub MAIN($file) {
     say qx[cat template.html].subst(
+            q[$title],
+            qqx[head -n 1 $file].substr(2)
+    ).subst(
             q[$body],
             qqx[perl Markdown_1.0.1/Markdown.pl $file].subst(
                 "<h2>Exercises",
