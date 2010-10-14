@@ -3,7 +3,7 @@
 ## The Unix model: pipes
 
 With most Unix shells, you can easily chain several commands together, having
-each command use the output of the previous one as input:
+each command use the output of the previous one as input.
 
     $ grep -i '^q' /usr/share/dict/words | grep -iv 'qu' | tr A-Z a-z | uniq
     qasida
@@ -74,8 +74,8 @@ slashes.
     $ sed 's!foo!bar!'
     $ sed 's#foo#bar#'
 
-Sed recognizes the quantifier `*` for 0-or-more matches. It doesn't recognize
-`+` or `?`.
+Sed recognizes the quantifier `*` for zero-or-more matches. It doesn't
+recognize `+` or `?`.
 
     $ echo 'f fo foo FOO' | sed 's/fo*/bar/g'
     bar bar bar FOO
@@ -89,7 +89,8 @@ It's only done in a non-overlapping way, though:
 Otherwise there would be a risk of infinite regress.
 
 Here's an example that shows captures (`\(...\)`), character classes (`[...]`),
-and capture references. The `sed` scripts deletes duplicate words from a text.
+and capture references (`\1`, `\2` etc.). The `sed` scripts deletes duplicate
+words from a text.
 
     $ echo 'going to to feed the the cat' | sed 's!\([a-zA-Z]*\) \1 !\1 !g'
     going to feed the cat
@@ -120,14 +121,10 @@ With `awk`, one can find and manipulate fields.
     0:00.22
     0:00.00
 
-    $ ls -l | awk '!/total/ { print $1 }' # prints first column but not 'total'
-    -rw-r--r--
-    -rw-r--r--
-    -rw-r--r--
-    drwxr-xr-x@
-    drwxr-xr-x
-    -rw-r--r--
-    -rw-r--r--
+    $ ps | awk '!/TIME/ { print $3 }' # prints third column but not 'TIME'
+    0:00.05
+    0:00.22
+    0:00.00
 
 The general form of an `awk` program is `'<pattern> { <code> }'`. Patterns
 can be regexes within `/.../` (and the regexes can be negated with a `!`, as
@@ -137,9 +134,10 @@ to only match line 10); or they can be `BEGIN` or `END`.
     $ ls -l | awk '{ s += $5 }; END { print s }' # sums all the byte sizes
     1572695
 
-The regexes in `awk` are similar to `sed`, though capturing parens (`(...)`)
-are no longer backwhacked. As opposed to `sed`, `awk` recognizes the `+` and
-`?` quantifiers.
+The regexes in `awk` are similar to `sed`, though capturing parentheses
+(`(...)`) are no longer backwhacked. As opposed to `sed`, `awk` recognizes the
+`+` and `?` quantifiers, matching one-or-more things and zero-or-one things,
+respectively.
 
 `awk` can also be used in more advanced situations. It has `if` statements,
 `while` loops, and `for` loops.
@@ -176,14 +174,10 @@ Here are the previous `sed` and `awk` examples with `perl` instead:
     0:00.27
     0:00.00
 
-    $ ls -l | perl -wanle 'print $F[0] if !/total/'
-    -rw-r--r--
-    -rw-r--r--
-    -rw-r--r--
-    drwxr-xr-x@
-    drwxr-xr-x
-    -rw-r--r--
-    -rw-r--r--
+    $ ps | perl -wanle 'if (!/TIME/) { print $3 }'
+    0:00.05
+    0:00.27
+    0:00.00
 
     $ ls -l | perl -wanle '$s += $F[4]; END { print $s }'
     1572695
