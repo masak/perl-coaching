@@ -6,6 +6,7 @@ With most Unix shells, you can easily chain several commands together, having
 each command use the output of the previous one as input.
 
     $ grep -i '^q' /usr/share/dict/words | grep -iv 'qu' | tr A-Z a-z | uniq
+    q
     qasida
     qere
     qeri

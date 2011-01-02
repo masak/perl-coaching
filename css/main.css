@@ -1,4 +1,6 @@
 body {
+  background: white;
+  color: black;
   max-width: 800px;
   margin: 0 auto;
   font-size: 1.2em;
@@ -17,14 +19,17 @@ p {
 
 pre {
   background: #ded;
-  border-top: double 3px #666;
-  border-bottom: double 3px #666;
+  -webkit-box-shadow: 5px 5px 10px #666;
+  -moz-box-shadow: 5px 5px 10px #666;
+  box-shadow: 5px 5px 10px #666;
   padding: 1em;
   font: normal normal normal medium/1.2 Consolas, 'Andale Mono', Monaco, 'Liberation Mono', 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', monospace;
 }
 
 .exercises {
-  border-top: double 3px #666;
+  -webkit-box-shadow: 5px 5px 10px #666;
+  -moz-box-shadow: 5px 5px 10px #666;
+  box-shadow: 5px 5px 10px #666;
   background: #abc;
   padding: 1ex 1.5em 1ex 1.5em;
 }

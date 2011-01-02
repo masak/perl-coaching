@@ -1,0 +1,19 @@
+body { 
+  font-size : 10pt; 
+  margin: 0 5%;
+}
+
+pre {
+  background: white;
+  border: solid 1px #888;
+  padding: 1em;
+  font: normal normal normal medium/1 Consolas, 'Andale Mono', Monaco, 'Liberation Mono', 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', monospace;
+  font-size: 10pt;
+  text-align: justify;
+}
+
+.exercises {
+  border: solid 1px #888;
+  background: white;
+  padding: 1ex 1.5em 1ex 1.5em;
+}
